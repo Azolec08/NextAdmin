@@ -25,12 +25,12 @@ const Userspage = async ({ searchParams }) => {
       <table className="w-full">
         <thead>
           <tr>
-            <td>Name</td>
-            <td>Email</td>
-            <td>CreatedAt</td>
-            <td>Role</td>
-            <td>Status</td>
-            <td>Action</td>
+            <th>Name</th>
+            <th>Email</th>
+            <th>CreatedAt</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
