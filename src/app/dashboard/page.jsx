@@ -1,8 +1,7 @@
-import React from "react";
 import Card from "../ui/card/card";
+import Chart from "../ui/chart/chart";
 import Rightbar from "../ui/dashboard/rightbar/rightbar";
 import Transactions from "../ui/transactions/transactions";
-import Chart from "../ui/chart/chart";
 
 export const metadata = {
   title: " Dashboard",
@@ -12,6 +11,7 @@ export const metadata = {
 const Dashboardpage = () => {
   return (
     <div className="h-fit  grid grid-flow-col gap-3">
+      <h1>Mark</h1>
       <div className="flex flex-col gap-y-3">
         <div className="flex w-full gap-2">
           <Card />
