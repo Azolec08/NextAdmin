@@ -1,23 +1,32 @@
+import { updateUser } from "@/lib/actions";
+import { fetchUser } from "@/lib/data";
 import Image from "next/image";
 
-const SingleUserPage = () => {
+const SingleUserPage = async ({ params }) => {
+  const { id } = params;
+  const user = await fetchUser(id);
+
+  console.log(user);
+
   return (
     <div className="grid grid-cols-3">
-      <div className="flex justify-center">
+      <div className="flex flex-col gap-y-3 items-center">
         <figure className="relative w-48 h-48 col-span-1 mt-2">
           <Image
-            src="/noneImage.jpg"
+            src={user.image || "/noneImage.jpg"}
             alt="singleImg"
             fill
             sizes="max-width:600px"
             className="rounded-md"
           />
         </figure>
+        <h1>{user.username}</h1>
       </div>
       <form
-        action=""
+        action={updateUser}
         className="col-span-2 p-2 flex flex-col gap-y-2 text-xs bg-slate-800"
       >
+        <input type="hidden" name="id" value={user.id} readOnly />
         <label>Username</label>
         <input
           type="text"
@@ -37,6 +46,13 @@ const SingleUserPage = () => {
           type="password"
           placeholder="password"
           name="password"
+          className="p-3 bg-slate-900 outline-none "
+        />
+        <label>Image</label>
+        <input
+          type="text"
+          placeholder="image"
+          name="image"
           className="p-3 bg-slate-900 outline-none "
         />
         <label>Phone</label>

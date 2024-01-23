@@ -1,12 +1,12 @@
+import { addProduct } from "@/lib/actions";
 const AddProductPage = () => {
   return (
     <div>
-      <form action="" className="grid grid-cols-2 gap-3 p-2">
+      <form action={addProduct} className="grid grid-cols-2 gap-3 p-2">
         <input
           type="text"
           placeholder="Title"
           name="title"
-          reuired
           className="bg-slate-600 rounded-md  border-gray-500 p-2"
         />
         <select name="cat" id="cat" className="bg-slate-600 rounded-md  p-2">
@@ -38,6 +38,12 @@ const AddProductPage = () => {
           placeholder="size"
           name="size"
           className="bg-slate-600 rounded-md  p-2"
+        />
+        <input
+          type="text"
+          placeholder="image"
+          name="image"
+          className="bg-slate-600 rounded-md  p-2 col-span-2"
         />
         <textarea
           name="desc"

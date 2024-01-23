@@ -1,18 +1,23 @@
+import { fetchProduct } from "@/lib/data";
 import Image from "next/image";
 
-const SingleProductPage = () => {
+const SingleProductPage = async ({ params }) => {
+  const { id } = params;
+  const product = await fetchProduct(id);
   return (
     <div className="grid grid-cols-3">
-      <div className="flex justify-center">
+      <div className="flex flex-col items-center gap-y-3">
         <figure className="relative w-48 h-48 col-span-1 mt-2">
           <Image
-            src="/noneImage.jpg"
+            src={product.image || "/productnone.jpg"}
             alt="singleImg"
             fill
             sizes="max-width:600px"
             className="rounded-md"
           />
         </figure>
+
+        {product.title}
       </div>
       <form
         action=""
