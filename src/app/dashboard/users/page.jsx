@@ -1,5 +1,6 @@
 import Pagination from "@/app/ui/dashboard/pagination/Pagination";
 import Search from "@/app/ui/dashboard/search/Search";
+import { deleteUser } from "@/lib/actions";
 import { fetchUsers } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,8 +12,9 @@ export const metadata = {
 
 const Userspage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
 
-  const users = await fetchUsers(q);
+  const { count, users } = await fetchUsers(q, page);
 
   return (
     <div>
@@ -23,14 +25,14 @@ const Userspage = async ({ searchParams }) => {
         </Link>
       </div>
       <table className="w-full">
-        <thead>
+        <thead className="font-bold">
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>CreatedAt</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Action</th>
+            <td>Name</td>
+            <td>Email</td>
+            <td>CreatedAt</td>
+            <td>Role</td>
+            <td>Status</td>
+            <td>Action</td>
           </tr>
         </thead>
         <tbody>
@@ -41,8 +43,8 @@ const Userspage = async ({ searchParams }) => {
                   <div className="flex items-center h-full gap-x-1">
                     <Image
                       src={userData.image ? userData.image : "/noneImage.jpg"}
-                      width={30}
-                      height={30}
+                      width={40}
+                      height={50}
                       alt="userImg"
                       className="rounded-full"
                     />
@@ -53,24 +55,32 @@ const Userspage = async ({ searchParams }) => {
                 <td>{userData.createdAt.toString().slice(4, 16)}</td>
                 <td>{userData.isAdmin ? "Admin" : "client"}</td>
                 <td>{userData.isActive ? "Active" : "Passive"}</td>
-                <td className=" text-xs">
-                  <Link href="/dashboard/users/test ">
-                    <button className="p-1 bg-green-500 mr-2 rounded-md">
-                      View
-                    </button>
-                  </Link>
-                  <Link href="/">
-                    <button className="p-1 bg-red-500 rounded-md">
-                      Delete
-                    </button>
-                  </Link>
+                <td className="text-xs">
+                  <div className="flex">
+                    <Link href={`/dashboard/users/${userData.id} `}>
+                      <button className="p-1 bg-green-500 mr-2 rounded-md">
+                        View
+                      </button>
+                    </Link>
+                    <form action={deleteUser}>
+                      <input
+                        type="hidden"
+                        value={userData.id}
+                        name="id"
+                        readOnly
+                      />
+                      <button className="p-1 bg-red-500 rounded-md">
+                        Delete
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 };

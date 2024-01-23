@@ -1,19 +1,21 @@
+"use client";
+
+import { addUser } from "@/lib/actions";
+
 const AddUserPage = () => {
   return (
     <div>
-      <form action="" className="grid grid-cols-2 gap-3 p-2">
+      <form action={addUser} className="grid grid-cols-2 gap-3 p-2">
         <input
           type="text"
           placeholder="username"
           name="username"
-          reuired
           className="bg-slate-600 rounded-md  border-gray-500 p-2"
         />
         <input
           type="email"
           placeholder="email"
           name="email"
-          reuired
           className="bg-slate-600 rounded-md  border-gray-500 p-2"
         />
 
@@ -21,7 +23,6 @@ const AddUserPage = () => {
           type="password"
           placeholder="password"
           name="password"
-          reuired
           className="bg-slate-600 rounded-md  border-gray-500 p-2"
         />
         <input

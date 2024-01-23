@@ -1,5 +1,7 @@
 import Pagination from "@/app/ui/dashboard/pagination/Pagination";
 import Search from "@/app/ui/dashboard/search/Search";
+import { deleteProducts } from "@/lib/actions";
+import { fetchProducts } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,7 +10,12 @@ export const metadata = {
   description: "Dashboard description",
 };
 
-const ProductsPage = () => {
+const ProductsPage = async ({ searchParams }) => {
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+
+  const { count, products } = await fetchProducts(q, page);
+
   return (
     <div>
       <div className="flex justify-between items-center bg-slate-700 p-2  ">
@@ -28,38 +35,52 @@ const ProductsPage = () => {
             <td>Action</td>
           </tr>
         </thead>
-        <tbody className="h-16">
-          <tr className=" ">
-            <td>
-              <div className="flex items-center h-full gap-x-1">
-                <Image
-                  src="/productnone.jpg"
-                  width={40}
-                  height={40}
-                  alt="userImg"
-                  className="rounded-full"
-                />
-                Iphone 10
-              </div>
-            </td>
-            <td>Desc</td>
-            <td>Php15000</td>
-            <td>19.01.2024</td>
-            <td>57</td>
-            <td className=" text-xs">
-              <Link href="/dashboard/products/test">
-                <button className="p-1 bg-green-500 mr-2 rounded-md">
-                  View
-                </button>
-              </Link>
-              <Link href="/">
-                <button className="p-1 bg-red-500 rounded-md">Delete</button>
-              </Link>
-            </td>
-          </tr>
+        <tbody>
+          {products.map((product) => {
+            return (
+              <tr key={product.id} className="h-10">
+                <td>
+                  <div className="flex items-center h-full gap-x-1">
+                    <Image
+                      src={product.image || "/productnone.jpg"}
+                      width={40}
+                      height={40}
+                      alt="userImg"
+                      className="rounded-full p-1"
+                    />
+                    {product.title}
+                  </div>
+                </td>
+                <td>{product.desc}</td>
+                <td>{product.price}</td>
+                <td>{product.createdAt.toString().slice(4, 16)}</td>
+                <td>{product.stock}</td>
+                <td className=" text-xs">
+                  <div className="flex">
+                    <Link href={`/dashboard/products/${product.id}`}>
+                      <button className="p-1 bg-green-500 mr-2 rounded-md">
+                        View
+                      </button>
+                    </Link>
+                    <form action={deleteProducts}>
+                      <input
+                        type="hidden"
+                        value={product.id}
+                        name="id"
+                        readOnly
+                      />
+                      <button className="p-1 bg-red-500 rounded-md">
+                        Delete
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 };
