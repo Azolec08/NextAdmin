@@ -32,7 +32,6 @@ const LoginForm = () => {
         <button type="submit" className="p-2 bg-blue-600 w-full rounded-sm">
           Login
         </button>
-        <span>{state && state}</span>
       </form>
     </div>
   );
