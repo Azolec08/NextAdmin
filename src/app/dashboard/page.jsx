@@ -11,7 +11,6 @@ export const metadata = {
 const Dashboardpage = () => {
   return (
     <div className="h-fit  grid grid-flow-col gap-3">
-      <h1>Mark</h1>
       <div className="flex flex-col gap-y-3">
         <div className="flex w-full gap-2">
           <Card />

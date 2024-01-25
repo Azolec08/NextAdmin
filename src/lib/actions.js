@@ -1,6 +1,7 @@
 "use server";
 
-import bcrypt from "bcryptjs";
+import { signIn, signOut } from "@/lib/auth";
+import bcrypt from "bcrypt";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Products, Users } from "./model";
@@ -125,4 +126,48 @@ export const updateUser = async (formData) => {
   }
   revalidatePath("/dashboard/users");
   redirect("/dashboard/users");
+};
+
+export const updateProducts = async (formData) => {
+  const { id, title, price, desc, image, stock, color, size } =
+    Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+
+    const updateProduct = {
+      id,
+      title,
+      price,
+      desc,
+      image,
+      stock,
+      color,
+      size,
+    };
+
+    Object.keys(updateProduct).forEach(
+      (key) => updateProduct[key] === "" || undefined
+    ) && delete updateProduct[key];
+
+    await Products.findByIdAndUpdate(id, updateProduct);
+  } catch (error) {
+    throw new Error("Update products failed");
+  }
+  revalidatePath("/dashboard/products");
+  redirect("/dashboard/products");
+};
+
+export const authenTicate = async (prevState, formData) => {
+  const { username, password } = Object.fromEntries(formData);
+  try {
+    await signIn("credentials", { username, password });
+  } catch (err) {
+    console.log(err);
+    return "Wrong Credentials";
+  }
+};
+
+export const Logout = async () => {
+  await signOut();
 };

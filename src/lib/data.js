@@ -6,7 +6,7 @@ import { connectToDb } from "./utils";
 export const fetchUsers = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 3;
   try {
     connectToDb();
     const count = await Users.find({ username: { $regex: regex } }).count();
@@ -36,7 +36,7 @@ export const fetchUser = async (id) => {
 export const fetchProducts = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 3;
   try {
     connectToDb();
     const count = await Products.find({ title: { $regex: regex } }).count();

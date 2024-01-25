@@ -2,11 +2,19 @@ import { updateUser } from "@/lib/actions";
 import { fetchUser } from "@/lib/data";
 import Image from "next/image";
 
-const SingleUserPage = async ({ params }) => {
+export async function generateMetaData({ params }) {
   const { id } = params;
   const user = await fetchUser(id);
 
-  console.log(user);
+  return {
+    title: user.username,
+    description: user.username,
+  };
+}
+
+const SingleUserPage = async ({ params }) => {
+  const { id } = params;
+  const user = await fetchUser(id);
 
   return (
     <div className="grid grid-cols-3">
@@ -76,16 +84,24 @@ const SingleUserPage = async ({ params }) => {
           id="isAdmin"
           className="p-3 bg-slate-900 outline-none "
         >
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
+          <option value={true} selected={user.isAdmin}>
+            Yes
+          </option>
+          <option value={false} selected={!user.isAdmin}>
+            No
+          </option>
         </select>
         <select
           name="isActive"
           id="isActive"
           className="p-3 bg-slate-900 outline-none "
         >
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
+          <option value={true} selected={user.isActive}>
+            Yes
+          </option>
+          <option value={false} seleted={!user.isActive}>
+            No
+          </option>
         </select>
         <button
           type="submit"

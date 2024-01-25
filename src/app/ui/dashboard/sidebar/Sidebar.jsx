@@ -1,10 +1,13 @@
-import React from "react";
-import MenuLink from "./menuLink/menuLink";
-import Image from "next/image";
 import { menuItems } from "@/constants";
+import { Logout } from "@/lib/actions";
+import { auth } from "@/lib/auth";
+import Image from "next/image";
 import { MdLogout } from "react-icons/md";
+import MenuLink from "./menuLink/menuLink";
 
-const Sidebar = () => {
+const Sidebar = async () => {
+  const session = await auth();
+  console.log(session);
   return (
     <div className="sticky top-0">
       <div className="p-2 flex items-center gap-x-2">
@@ -35,6 +38,7 @@ const Sidebar = () => {
         );
       })}
       <form
+        action={Logout}
         className="flex items-center p-2 cursor-pointer
       hover:bg-slate-100 hover:text-blue-600 transition-all
       "
