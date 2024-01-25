@@ -1,17 +1,17 @@
 "use client";
 
 import { authenTicate } from "@/lib/actions";
-import { useFormState } from "react-dom";
+// import { useFormState } from "react-dom";
 
 const LoginForm = () => {
-  const [state, formAction] = useFormState(authenTicate, undefined);
+  // const [state, formAction] = useFormState(authenTicate, undefined);
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center
     "
     >
       <form
-        action={formAction}
+        action={authenTicate}
         className="flex flex-col items-center  gap-y-4 bg-gray-600  p-4
         h-[275px]
         "
