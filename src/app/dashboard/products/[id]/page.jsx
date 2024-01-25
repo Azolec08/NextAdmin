@@ -1,3 +1,4 @@
+import { updateProducts } from "@/lib/actions";
 import { fetchProduct } from "@/lib/data";
 import Image from "next/image";
 
@@ -20,9 +21,10 @@ const SingleProductPage = async ({ params }) => {
         {product.title}
       </div>
       <form
-        action=""
+        action={updateProducts}
         className="col-span-2 p-2 flex flex-col gap-y-2 text-xs bg-slate-800"
       >
+        <input type="hidden" value={product.id} name="id" readOnly />
         <label>Title</label>
         <input
           type="text"

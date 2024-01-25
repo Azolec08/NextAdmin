@@ -5,11 +5,6 @@ import { fetchProducts } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Next Products",
-  description: "Dashboard description",
-};
-
 const ProductsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
