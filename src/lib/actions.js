@@ -70,7 +70,7 @@ export const deleteUser = async (formData) => {
   const { id } = Object.fromEntries(formData);
   try {
     connectToDb();
-    await Users.findByIdAndDelete(id);
+    await Users.fin
   } catch (error) {
     throw new Error("failed to delete the User");
   }

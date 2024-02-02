@@ -96,10 +96,10 @@ const SingleUserPage = async ({ params }) => {
           id="isActive"
           className="p-3 bg-slate-900 outline-none "
         >
-          <option value={true} selected={user.isActive}>
+          <option value={true} defaultValue={user.isActive}>
             Yes
           </option>
-          <option value={false} seleted={!user.isActive}>
+          <option value={false} defaultValue={!user.isActive}>
             No
           </option>
         </select>
