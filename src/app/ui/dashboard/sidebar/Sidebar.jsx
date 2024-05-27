@@ -1,13 +1,10 @@
 import { menuItems } from "@/constants";
 import { Logout } from "@/lib/actions";
-import { auth } from "@/lib/auth";
 import Image from "next/image";
 import { MdLogout } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
 
 const Sidebar = async () => {
-  const session = await auth();
-  console.log(session);
   return (
     <div className="sticky top-0">
       <div className="p-2 flex items-center gap-x-2">
