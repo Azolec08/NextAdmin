@@ -7,7 +7,7 @@ const AddProductPage = () => {
           type="text"
           placeholder="Title"
           name="title"
-          className="bg-slate-600 rounded-md  border-gray-500 p-2"
+          className="bg-slate-600 rounded-md  border-gray-500 p-3"
         />
         <select name="cat" id="cat" className="bg-slate-600 rounded-md  p-2">
           <option value="general">Choose Category</option>
